@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "config": {
+    "port": 8181
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "./node_modules/.bin/eslint src/client/app/**",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register test/",
+    "build": "./node_modules/.bin/webpack -p",
+    "dev": "open http://localhost:8181/ && ./node_modules/.bin/webpack-dev-server --devtool sourcemap --output-pathinfo --watch --port $npm_package_config_port --content-base src/client",
+
+    "prebuild": "npm run test",
+    "pretest": "npm run lint"
   },
   "author": "Jason Young <jyoung@fastspring.com>",
   "license": "ISC",
@@ -20,5 +29,12 @@
     "react-redux": "^4.4.5",
     "redux": "^3.4.0",
     "webpack": "^1.13.0"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "react-addons-test-utils": "^15.0.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }
